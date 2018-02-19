@@ -16,12 +16,31 @@ NULL
 #' @param sorting_order the order in which rows shall be sorted, "abundance" is defult,
 #'                       "alphabetical" is an alternative.
 #' @param row_limit the max amount of rows to plot (default is 60).
+#' @param min_row_abundance the minimal sum of abundances in a row required to plot.
+#'  Rows whose sum is less than this value are dropped even if row_limit is specified.
+#'  Ignored for "alphabetical" order. (default 0.0).
 #' @param plot_title The plot title.
 #' @param filename The output file mask, PDF and SVG files will be produced with Cairo device.
 #'
+#' @examples
+#' \dontrun{
+#' hmp_even_fp <- system.file("extdata", "HMP_even", package="MetaComp")
+#' hmp_stagger_fp <- system.file("extdata", "HMP_stagger", package="MetaComp")
+#' data_files <- data.frame(V1 = c("HMP_even", "HMP_stagger"),
+#'                          V2 = c(file.path(hmp_even_fp, "allReads-gottcha2-speDB-b.list.txt"),
+#'                                 file.path(hmp_stagger_fp, "allReads-gottcha2-speDB-b.list.txt")))
+#' write.table(data_files, file.path(tempdir(), "assignments.txt"),
+#'                                                  row.names = FALSE, col.names = FALSE)
+#' gottcha2_assignments = merge_edge_assignments(
+#'                          load_edge_assignments(
+#'                            file.path(tempdir(), "assignments.txt"), type = "gottcha2"))
+#' plot_merged_assignment(gottcha2_assignments, "family", 'alphabetical', 100, 0,
+#'                                        "HMP side-to-side", file.path(tempdir(), "assignment.pdf"))
+#' }
+#'
 #' @export
 plot_merged_assignment <- function(assignment, taxonomy_level, sorting_order = "abundance",
-                                   row_limit = 60, plot_title, filename) {
+               row_limit = 60, min_row_abundance = 0, plot_title, filename) {
 
   TAXA <- LEVEL <- SUM <- value <- variable <- NULL # fix the CRAN note
 
@@ -74,6 +93,12 @@ plot_merged_assignment <- function(assignment, taxonomy_level, sorting_order = "
     } else {
       # order rows by the sum value
       df <- dplyr::arrange(df, SUM)
+      to_keep <- which(df$SUM > min_row_abundance)
+      if (length(to_keep) == 0) {
+        # keep just one so it doesnt fail
+        df <- df[1, ]
+      }
+      df <- df[to_keep, ]
     }
   }
 
@@ -117,7 +142,7 @@ plot_merged_assignment <- function(assignment, taxonomy_level, sorting_order = "
                       title.vjust = 0.9, barheight = 0.6, barwidth = 6,
                       label.theme = ggplot2::element_text(size = 9, angle = 0),
                       label.hjust = 0.2)) +
-       ggplot2::theme(plot.title = ggplot2::element_text(size = 14),
+       ggplot2::theme(plot.title = ggplot2::element_text(size = 14, hjust = 1),
                    axis.title.x = ggplot2::element_text(size = 0),
                    axis.title.y = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_text(size = 10, angle = 55,
@@ -131,12 +156,20 @@ plot_merged_assignment <- function(assignment, taxonomy_level, sorting_order = "
                    #plot.margin=grid::unit(c(0.1,0.1,3,0.1), 'lines'),
                    legend.direction = "horizontal", legend.position = "bottom")
 
+  # align the TITLE to the left workaround
+  #
+  #title.grob <- grid::textGrob(
+  #    label = plot_title, x = grid::unit(0, "lines"), y = grid::unit(0, "lines"),
+  #    hjust = -1, vjust = 0, gp = grid::gpar(fontsize = 16))
+  #p1 <- suppressWarnings(gridExtra::arrangeGrob(p, top = title.grob))
+
   Cairo::CairoPDF(file = filename, width = 0.3 * length(df[1, ]) + 6,
                   height = 0.15 * length(df$TAXA) + 5,
                   onefile = TRUE, family = "Helvetica",
                   title = "R Graphics Output", version = "1.1",
                   paper = "special", bg = "white", pointsize = 10)
-  print(p)
+  #suppressWarnings(grid::grid.draw(p1))
+  suppressWarnings(print(p))
   dev.off()
 
   Cairo::CairoSVG(file = filename, width = 0.3 * length(df[1, ]) + 6,
@@ -144,7 +177,8 @@ plot_merged_assignment <- function(assignment, taxonomy_level, sorting_order = "
                   onefile = TRUE, family = "Helvetica",
                   title = "R Graphics Output", version = "1.1",
                   paper = "special", bg = "white", pointsize = 10)
-  print(p)
+  #suppressWarnings(grid::grid.draw(p1))
+  suppressWarnings(print(p))
   dev.off()
 
 }

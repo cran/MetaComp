@@ -5,7 +5,8 @@
 \title{Generates a single column ggplot for a taxonomic assignment table.}
 \usage{
 plot_merged_assignment(assignment, taxonomy_level,
-  sorting_order = "abundance", row_limit = 60, plot_title, filename)
+  sorting_order = "abundance", row_limit = 60, min_row_abundance = 0,
+  plot_title, filename)
 }
 \arguments{
 \item{assignment}{The gottcha-like merged assignment table.}
@@ -17,10 +18,31 @@ plot_merged_assignment(assignment, taxonomy_level,
 
 \item{row_limit}{the max amount of rows to plot (default is 60).}
 
+\item{min_row_abundance}{the minimal sum of abundances in a row required to plot.
+Rows whose sum is less than this value are dropped even if row_limit is specified.
+Ignored for "alphabetical" order. (default 0.0).}
+
 \item{plot_title}{The plot title.}
 
 \item{filename}{The output file mask, PDF and SVG files will be produced with Cairo device.}
 }
 \description{
 This implementation...
+}
+\examples{
+\dontrun{
+hmp_even_fp <- system.file("extdata", "HMP_even", package="MetaComp")
+hmp_stagger_fp <- system.file("extdata", "HMP_stagger", package="MetaComp")
+data_files <- data.frame(V1 = c("HMP_even", "HMP_stagger"),
+                         V2 = c(file.path(hmp_even_fp, "allReads-gottcha2-speDB-b.list.txt"),
+                                file.path(hmp_stagger_fp, "allReads-gottcha2-speDB-b.list.txt")))
+write.table(data_files, file.path(tempdir(), "assignments.txt"),
+                                                 row.names = FALSE, col.names = FALSE)
+gottcha2_assignments = merge_edge_assignments(
+                         load_edge_assignments(
+                           file.path(tempdir(), "assignments.txt"), type = "gottcha2"))
+plot_merged_assignment(gottcha2_assignments, "family", 'alphabetical', 100, 0,
+                                       "HMP side-to-side", file.path(tempdir(), "assignment.pdf"))
+}
+
 }
