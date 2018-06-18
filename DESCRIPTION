@@ -1,5 +1,5 @@
 Package: MetaComp
-Version: 1.1.1
+Version: 1.1.2
 Title: EDGE Taxonomy Assignments Visualization
 Description: Implements routines for metagenome sample taxonomy assignments collection, 
     aggregation, and visualization. Accepts the EDGE-formatted output from GOTTCHA/GOTTCHA2, 
@@ -16,8 +16,8 @@ LazyData: true
 License: GPL-2
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2018-02-18 12:24:53 UTC; psenin
+Packaged: 2018-06-18 19:33:19 UTC; psenin
 Author: Pavel Senin [aut, cre]
 Maintainer: Pavel Senin <senin@hawaii.edu>
 Repository: CRAN
-Date/Publication: 2018-02-19 19:51:03 UTC
+Date/Publication: 2018-06-18 20:06:45 UTC

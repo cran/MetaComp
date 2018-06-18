@@ -1,4 +1,4 @@
-ec91a85bc497e66df13512b853f913a9 *DESCRIPTION
+a531b99a95c4eed4e602ed9684ba2e30 *DESCRIPTION
 e28a97d5505d6c6cd6f67b54cab3e5ae *NAMESPACE
 c7edde0f48f11ac2b89f1dc894257380 *R/load_edge_assignment.R
 f60c02fcc8dcc795989065b7220757e4 *R/load_edge_assignments.R
@@ -6,7 +6,7 @@ f60c02fcc8dcc795989065b7220757e4 *R/load_edge_assignments.R
 cc22a890aa28defaff903c28c9fdd70f *R/merge_edge_counts.R
 57d9c952a02ed0de74471782b7c59d3c *R/plot_edge_assignment.R
 ac8fb2ebce892b30df1355fd68d852a3 *R/plot_merged_assignment.R
-ea98b5e1179e1e3679a9871d60bdd4a3 *README.md
+a929af0c45da9e20e25b70acb096606b *README.md
 a00aee2b7e1076f63e79d0ba8eee672a *inst/extdata/HMP_even/allReads-bwa.list.txt
 ae57ee94db35d5280876ac0443069d94 *inst/extdata/HMP_even/allReads-diamond.list.txt
 8350bb97e1bae0f0338543d090114e3f *inst/extdata/HMP_even/allReads-gottcha-genDB-b.list.txt
@@ -231,12 +231,12 @@ a4386cfde87a8792f66943c239075741 *tests/testthat/test_merge_gottcha_assignments.
 f8ea3db01e50ae778e9ada3f21c3565c *tests/testthat/test_plot_diamond_assignment.R
 0f967de4218b449038bd4c4c152a756a *tests/testthat/test_plot_gottcha_assignment.R
 ad66ba2df9bf0b1bd1e975e0e5e92974 *tests/testthat/test_plot_kraken_assignment.R
-65e561465661dcef403f3acdb5a66ee0 *tests/testthat/test_plot_merged_assignment_b.R
-4ea7eb6462f17f6789448036c911975a *tests/testthat/test_plot_merged_assignment_d.R
-b181310dc5709a61f8650f8620368193 *tests/testthat/test_plot_merged_assignment_g.R
-c8bd3838a68b3491d787c6baf651b281 *tests/testthat/test_plot_merged_assignment_g2.R
-4d14e9b9ae3be61c98cc8a4029677bb9 *tests/testthat/test_plot_merged_assignment_k.R
-2c09b2ff7286a7e1018ec9459878c399 *tests/testthat/test_plot_merged_assignment_m.R
-ef0b15fdf68778a67e8e797999d1c2d5 *tests/testthat/test_plot_merged_assignment_p.R
+ac69f3ac9d848e410adcf2ef8b847f49 *tests/testthat/test_plot_merged_assignment_b.R
+2aa39409a0bd98971ebbbdd707cbdda9 *tests/testthat/test_plot_merged_assignment_d.R
+29aa548192780b000a82497b280004c3 *tests/testthat/test_plot_merged_assignment_g.R
+ced686e08eba9c2dac16c28c5ae6224c *tests/testthat/test_plot_merged_assignment_g2.R
+35c578e7d360e3951f33130a164139e3 *tests/testthat/test_plot_merged_assignment_k.R
+264a0cc5c5ec2298ebc7024cb579937d *tests/testthat/test_plot_merged_assignment_m.R
+cb9a1e7e106eba1fad589372a0427e77 *tests/testthat/test_plot_merged_assignment_p.R
 bebaae7c906d47a0ef8cb5ebaec84a26 *tests/testthat/test_plot_metaphlan_assignment.R
 213f5dbe47bce81d54b02499522ec26f *tests/testthat/test_plot_pangia_assignment.R
